@@ -40,8 +40,8 @@ def send_email():
                     logger.info("Find testing error. Drafting Email")
                     msg = MIMEMultipart()
                     msg['From'] = sender_email
-                    #msg['To'] = ", ".join(receiver_email)
-                    msg['To'] = receiver_email
+                    msg['To'] = ", ".join(receiver_email)
+                    #msg['To'] = receiver_email
                     msg['Subject'] = 'Error Found During Testing'
                     #Email Body
                     msg.attach(MIMEText(
