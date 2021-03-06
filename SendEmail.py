@@ -6,7 +6,7 @@ from email.mime.image import MIMEImage
 
 """Email Logging Setting"""
 LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
-logging.basicConfig(filename="C:\\Users\\tony\\PycharmProjects\\SystemTest\\SendEmail.log",
+logging.basicConfig(filename="C:\\Users\\tony\\PycharmProjects\\SystemTest\\Email_Log.log",
                     level=logging.INFO, format=LOG_FORMAT, datefmt='%d/%m/%Y %H:%M:%S', filemode='a')
 logger = logging.getLogger()
 
