@@ -1,0 +1,15 @@
+INFO 05/03/2021 16:20:05 - ====== WebDriver manager ======
+INFO 05/03/2021 16:20:06 - Current google-chrome version is 88.0.4324
+INFO 05/03/2021 16:20:06 - Get LATEST driver version for 88.0.4324
+INFO 05/03/2021 16:20:06 - Driver [C:\Users\tony\.wdm\drivers\chromedriver\win32\88.0.4324.96\chromedriver.exe] found in cache
+INFO 05/03/2021 16:20:18 - Login page loads
+INFO 05/03/2021 16:20:39 - Login successfully
+INFO 05/03/2021 16:20:39 - Access Project IMS Group Profile
+INFO 05/03/2021 16:20:54 - Load SF View
+INFO 05/03/2021 16:21:02 - SF view Contents Loads successfully
+INFO 05/03/2021 16:21:02 - Click on Create New SF Button
+INFO 05/03/2021 16:22:21 - New SF Created[https://cce.integrumsystems.com/cceurope/smformdata.nsf/smForm.xsp?templateDocId=FCCFC4F67A00632E00257FE20040597F&rnd=1614921662422]
+INFO 05/03/2021 16:22:21 - SF Content loads
+INFO 05/03/2021 16:22:22 - Open YF
+INFO 05/03/2021 16:22:51 - YF Loads
+INFO 05/03/2021 16:22:52 - ERROR: Can not find dashboards
