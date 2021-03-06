@@ -1,8 +1,15 @@
-import smtplib, re, os, datetime
+import smtplib, re, os, datetime,logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
-from TestCase import TestCases
+#from TestCase import TestCases
+
+"""Email Logging Setting"""
+LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
+logging.basicConfig(filename="C:\\Users\\tony\\PycharmProjects\\SystemTest\\SendEmail.log",
+                    level=logging.INFO, format=LOG_FORMAT, datefmt='%d/%m/%Y %H:%M:%S', filemode='a')
+logger = logging.getLogger()
+
 
 "File path"
 log_file_path = "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log"
@@ -19,6 +26,9 @@ smtpObj.starttls()
 smtpObj.login("sysadmin@integrumsystems.com", "Kur03463")
 sender_email = "sysadmin@integrumsystems.com"
 receiver_email = ["tony@integrumsystems.com", "Monica@integrumsystems.com"]
+#smtpObj.login("tony@integrumsystems.com", "2121083Ct")
+#sender_email = "tony@integrumsystems.com"
+#receiver_email = "tony@integrumsystems.com"
 
 def send_email():
     """Search ERROR in log file"""
@@ -27,9 +37,11 @@ def send_email():
             for line in file:
                 if re.search(r"\BRROR", line):
                     """Email Content"""
+                    logger.info("Find testing error. Drafting Email")
                     msg = MIMEMultipart()
                     msg['From'] = sender_email
-                    msg['To'] = ", ".join(receiver_email)
+                    #msg['To'] = ", ".join(receiver_email)
+                    msg['To'] = receiver_email
                     msg['Subject'] = 'Error Found During Testing'
                     #Email Body
                     msg.attach(MIMEText(
@@ -45,6 +57,7 @@ def send_email():
                         attach_text = MIMEText(logfile, "plain", "utf-8")
                         attach_text.add_header("Content-Disposition", "attachment", filename="Log.txt")
                         msg.attach(attach_text)
+                        logger.info("Attaching log file")
 
                     #Attach screenshots
                     if len(os.listdir(screenshots_path)) > 0:
@@ -55,19 +68,23 @@ def send_email():
                             image = MIMEImage(open(file_path, 'rb').read())
                             image.add_header("Content-Disposition", "attachment", filename=image_name)
                             msg.attach(image)
+                            logger.info("Attaching screenshots")
+                    else:
+                        logger.info("Can not find any screenshots to attach")
                     try:
                         smtpObj.sendmail(sender_email, receiver_email, msg.as_string())
-                        print("email sent")
+                        logger.info("Email sent\n")
+                        print("Email sent")
                         smtpObj.quit()
                     except Exception as e:
-                        print(e)
+                        logger.info(e)
         file.close()
     else:
-        print("Can not find log file")
+        logger.info("Can not find log file. Email didn't sent")
 
 
 
 
 if __name__ == "__main__":
-    TestCases.CCE_test()
+    #TestCases.CCE_test()
     send_email()
