@@ -16,7 +16,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import logging
+import logging,os
 
 """Test Account"""
 loginUsername = os.environ.get('CCETest')
@@ -27,7 +27,6 @@ LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
 logging.basicConfig(filename="C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log",
                     level=logging.INFO, format=LOG_FORMAT, datefmt='%d/%m/%Y %H:%M:%S', filemode='w')
 logger = logging.getLogger()
-
 
 """Open in browser"""
 browser_name = "Chrome"
