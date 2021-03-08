@@ -57,6 +57,7 @@ def CCE_test():
         driver.quit()
     else:
         # Log in with test account
+        logger.info("Start Login with Test2 Test2 account")
         driver.implicitly_wait(1)
         driver.find_element_by_id("user-id").clear()
         driver.find_element_by_id("user-id").send_keys(loginUsername)
