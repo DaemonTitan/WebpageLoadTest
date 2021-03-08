@@ -19,8 +19,8 @@ from selenium.webdriver.common.by import By
 import logging
 
 """Test Account"""
-loginUsername = "test2 test2"
-loginPassword = "CCE@123ims"
+loginUsername = os.environ.get('CCETest')
+loginPassword = os.environ.get('CCETest_Pass')
 
 """Logging Setting"""
 LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
