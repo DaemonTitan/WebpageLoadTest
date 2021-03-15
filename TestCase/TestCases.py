@@ -11,6 +11,7 @@
 from selenium import webdriver
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -39,7 +40,6 @@ else:
     raise Exception("Driver not found")
 driver.implicitly_wait(10)
 driver.minimize_window()
-driver.get("https://cce.integrumsystems.com/")
 
 
 def CCE_test():
@@ -47,13 +47,26 @@ def CCE_test():
     """Test Case 1: Test CCE Live Server is On"""
     logger.info("-----------------TESTING STARTED-----------------")
     try:
+        driver.get("https://jeldwen.integrumsystems.com/")
+    except WebDriverException:
+        logger.info("ERROR: Site not reachable")
+        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Site_down.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
+        driver.quit()
+        return
+
+    try:
         WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.ID, "user-id")))
         # print("Login page loads")
         logger.info("Login page loads")
     except TimeoutException:
         logger.info("Login page time out or Server is down")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Login_page_error.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     else:
         # Log in with test account
         logger.info("Start Login with Test2 Test2 account")
@@ -74,7 +87,10 @@ def CCE_test():
     except TimeoutException:
         logger.info("ERROR:Landing page is not loading")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Landing_Page_error.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
 
     """ Test Cases 3: Test Action Management View"""
     # Switch to Project IMS Group Profile
@@ -90,7 +106,10 @@ def CCE_test():
     except (TimeoutException, NoSuchElementException) as error:
         logger.info("ERROR:" + error)
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Left_Panel_Not_Loading.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     # Open Action Management View
     driver.implicitly_wait(2)
     try:
@@ -104,7 +123,10 @@ def CCE_test():
     except (TimeoutException, NoSuchElementException) as error:
         logger.info("ERROR:" + error)
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\View_Not_Loading.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     # Loads SF View Contents
     try:
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
@@ -113,8 +135,12 @@ def CCE_test():
         logger.info("SF view Contents Loads successfully")
     except TimeoutException:
         logger.info("ERROR: Load SF view content time out")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Load_SF_view_content_time_out.png")
+        driver.save_screenshot(
+            "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Load_SF_view_content_time_out.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
 
     """Test Case 4: Test Create Action Management SF"""
     home_page = driver.window_handles[0]
@@ -125,8 +151,12 @@ def CCE_test():
         logger.info("Click on Create New SF Button")
     except TimeoutException:
         logger.info("ERROR: Time out on loading new doc button")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\New_Doc_Button_not_Loading.png")
+        driver.save_screenshot(
+            "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\New_Doc_Button_not_Loading.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     try:
         template = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//a[contains(text(),'Action Management')]")))
         template.click()
@@ -138,7 +168,10 @@ def CCE_test():
     except TimeoutException:
         logger.info("ERROR: Time out on loading template button")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Create_SF_Error.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     # Test SF contents load
     try:
         ou_field = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
@@ -150,7 +183,10 @@ def CCE_test():
         logger.info("ERROR: SF content is not loading")
         driver.save_screenshot(
             "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\SF_Content_not_loading.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     else:
         """Close SF window and go back to home page"""
         driver.implicitly_wait(10)
@@ -179,7 +215,10 @@ def CCE_test():
     except (TimeoutException, NoSuchElementException):
         logger.info("ERROR: YF not loading")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\YF_Not_Loading.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
 
     # Load YF Dashboard
     try:
@@ -192,7 +231,10 @@ def CCE_test():
     except TimeoutException:
         logger.info("ERROR: Can not load Dashboard and report")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Dashboard_Not_Loading.png")
+        logger.info("-----------------TESTING COMPLETED-----------------")
+        driver.implicitly_wait(10)
         driver.quit()
+        return
     else:
         """CLose browser and Test Completes"""
         driver.implicitly_wait(15)

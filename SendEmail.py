@@ -1,15 +1,14 @@
-import smtplib, re, os, datetime,logging
+import smtplib, re, os, datetime, logging, shutil
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
-#from TestCase import TestCases
+from TestCase import TestCases
 
 """Email Logging Setting"""
 LOG_FORMAT = '%(levelname)s %(asctime)s - %(message)s'
 logging.basicConfig(filename='C:\\Users\\tony\\PycharmProjects\\SystemTest\\Email_Log.log',
                     level=logging.INFO, format=LOG_FORMAT, datefmt='%d/%m/%Y %H:%M:%S', filemode='a')
 logger = logging.getLogger()
-
 
 "File path"
 log_file_path = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log'
@@ -18,16 +17,19 @@ archive = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Archive'
 
 """Current Date"""
 CD = datetime.datetime.now().strftime('%d/%m/%Y_%H:%M:%S')
+CD_filename = datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
+today = datetime.datetime.now()
 
 """Email Setting"""
 smtp_server = 'smtp.office365.com'
 port = 587
 sender_email = os.environ.get('Admin_Email')
 sender_pass = os.environ.get('Admin_Pass')
-receiver_email = ['tony@integrumsystems.com', 'monica@integrumsystems.com']
+receiver_email = ['tony@integrumsystems.com']
 
-#sender_email = os.environ.get('Email')
-#sender_pass = os.environ.get('Email_Pass')
+
+# sender_email = os.environ.get('Email')
+# sender_pass = os.environ.get('Email_Pass')
 #receiver_email = 'tony@integrumsystems.com'
 
 def send_email():
@@ -91,8 +93,7 @@ def send_email():
         logger.info("Can not find log file. Email didn't sent")
 
 
-
-
 if __name__ == "__main__":
-    #TestCases.CCE_test()
+    # archive_task()
+    TestCases.CCE_test()
     send_email()

@@ -5,7 +5,7 @@ archive = "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Archive"
 log_file_path = "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log"
 screenshots_path = "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots"
 
-CD = datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
+CD_filename = datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
 today = datetime.datetime.now()
 
 # newdate = datetime.datetime.strptime(CD, '%d_%m_%Y_%H_%M_%S')
@@ -43,7 +43,7 @@ try:
         # Move Log into Screenshot folder
         shutil.move(log_file_path, screenshots_path)
         # Move Screenshot folder to archive folder
-        shutil.move(screenshots_path, os.path.join(archive, CD + "_" + "SystemTestLog"))
+        shutil.move(screenshots_path, os.path.join(archive, CD_filename + "_" + "SystemTestLog"))
         os.makedirs(screenshots_path)
 except IOError as error:
     print(error)
