@@ -47,7 +47,7 @@ def CCE_test():
     """Test Case 1: Test CCE Live Server is On"""
     logger.info("-----------------TESTING STARTED-----------------")
     try:
-        driver.get("https://jeldwen.integrumsystems.com/")
+        driver.get("https://cce.integrumsystems.com//")
     except WebDriverException:
         logger.info("ERROR: Site not reachable")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Site_down.png")
