@@ -2,13 +2,15 @@ import smtplib, re, os, datetime, logging, shutil
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
-from TestCase import TestCases
+from logging.handlers import RotatingFileHandler
 
 """Email Logging Setting"""
-LOG_FORMAT = '%(levelname)s %(asctime)s - %(message)s'
-logging.basicConfig(filename='C:\\Users\\tony\\PycharmProjects\\SystemTest\\Email_Log.log',
-                    level=logging.INFO, format=LOG_FORMAT, datefmt='%d/%m/%Y %H:%M:%S', filemode='a')
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+LOG_FORMAT = logging.Formatter('%(levelname)s %(asctime)s - %(message)s')
+file_handler = RotatingFileHandler('Email_Log.log', maxBytes=1000, backupCount=1)
+file_handler.setFormatter(LOG_FORMAT)
+logger.addHandler(file_handler)
 
 "File path"
 log_file_path = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log'
@@ -18,19 +20,61 @@ archive = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Archive'
 """Current Date"""
 CD = datetime.datetime.now().strftime('%d/%m/%Y_%H:%M:%S')
 CD_filename = datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
-today = datetime.datetime.now()
+date_TD = (datetime.datetime.now()).date()
 
 """Email Setting"""
 smtp_server = 'smtp.office365.com'
 port = 587
-sender_email = os.environ.get('Admin_Email')
-sender_pass = os.environ.get('Admin_Pass')
+# sender_email = os.environ.get('Admin_Email')
+# sender_pass = os.environ.get('Admin_Pass')
+# receiver_email = ['tony@integrumsystems.com']
+
+sender_email = os.environ.get('Email')
+sender_pass = os.environ.get('Email_Pass')
 receiver_email = ['tony@integrumsystems.com']
 
 
-# sender_email = os.environ.get('Email')
-# sender_pass = os.environ.get('Email_Pass')
-#receiver_email = 'tony@integrumsystems.com'
+def run_test():
+    try:
+        # Create archive if not exists
+        if not (os.path.exists(archive)):
+            os.makedirs(archive)
+        # Get creation date from first file
+        elif len(os.listdir(archive)) > 0:
+            folder_name = []
+            for f in os.listdir(archive):
+                arch_file = os.path.join(archive, f)
+                if os.path.isdir(arch_file):
+                    folder_name.append(arch_file)
+            first_folder = min(folder_name, key=os.path.getctime)
+            file_cdate = (datetime.datetime.fromtimestamp(os.path.getctime(first_folder))).date()
+            # add 2 days to first file's creation date
+            new_f_date = file_cdate + datetime.timedelta(days=4)
+            # Compare current date with first file's creation date
+            if new_f_date == date_TD:
+                shutil.rmtree(archive)
+                os.makedirs(archive)
+                logger.info("Archive folder cleared out")
+            else:
+                logger.info("Date not match, cannot delete archive folder")
+        else:
+            logger.info("Archive Task fail")
+    except IOError as error:
+        logger.info(error)
+    # Move log to archive folder
+    try:
+        # Move file to archive folder
+        if os.path.exists(screenshots_path) and os.path.isfile(log_file_path):
+            # Move Log into Screenshot folder
+            shutil.move(log_file_path, screenshots_path)
+            # Move Screenshot folder to archive folder
+            shutil.move(screenshots_path, os.path.join(archive, CD_filename + "_" + "SystemTestLog"))
+            os.makedirs(screenshots_path)
+            logger.info("Files moved into archive folder")
+    except IOError as error:
+        logger.info(error)
+
+
 
 def send_email():
     """Search ERROR in log file"""
@@ -83,17 +127,20 @@ def send_email():
                         smtpObj.starttls()
                         smtpObj.login(sender_email, sender_pass)
                         smtpObj.sendmail(sender_email, receiver_email, msg.as_string())
-                        logger.info("Email sent\n")
+                        logger.info("Error found email sent\n")
                         print("Email sent")
                         smtpObj.quit()
                     except Exception as e:
                         logger.info(e)
+            logger.info("No errors. Not send email\n")
         file.close()
     else:
         logger.info("Can not find log file. Email didn't sent")
 
 
 if __name__ == "__main__":
-    # archive_task()
-    TestCases.CCE_test()
+    run_test()
+    from TestCase.TestCases import CCE_test
+
+    CCE_test()
     send_email()

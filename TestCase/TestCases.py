@@ -17,17 +17,19 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import logging,os
+import logging, os
 
 """Test Account"""
 loginUsername = os.environ.get('CCETest')
 loginPassword = os.environ.get('CCETest_Pass')
 
 """Logging Setting"""
-LOG_FORMAT = "%(levelname)s %(asctime)s - %(message)s"
-logging.basicConfig(filename="C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log",
-                    level=logging.INFO, format=LOG_FORMAT, datefmt='%d/%m/%Y %H:%M:%S', filemode='w')
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+LOG_FORMAT = logging.Formatter("%(levelname)s %(asctime)s - %(message)s", "%d-%m-%Y %H:%M:%S")
+file_handler = logging.FileHandler('C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log')
+file_handler.setFormatter(LOG_FORMAT)
+logger.addHandler(file_handler)
 
 """Open in browser"""
 browser_name = "Chrome"
@@ -36,18 +38,19 @@ if browser_name == "Chrome":
 elif browser_name == "Firefox":
     driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 else:
-    #print("Browser Name:" + browser_name)
+    # print("Browser Name:" + browser_name)
     raise Exception("Driver not found")
 driver.implicitly_wait(10)
 driver.minimize_window()
 
 
 def CCE_test():
+
     """Starts Testing"""
     """Test Case 1: Test CCE Live Server is On"""
     logger.info("-----------------TESTING STARTED-----------------")
     try:
-        driver.get("https://cce.integrumsystems.com//")
+        driver.get("https://cce.integrumsystems.com://")
     except WebDriverException:
         logger.info("ERROR: Site not reachable")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Site_down.png")
@@ -61,7 +64,7 @@ def CCE_test():
         # print("Login page loads")
         logger.info("Login page loads")
     except TimeoutException:
-        logger.info("Login page time out or Server is down")
+        logger.info("ERROR: Login page time out or Server is down")
         driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Login_page_error.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
