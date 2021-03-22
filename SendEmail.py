@@ -128,7 +128,7 @@ def send_email():
                         smtpObj.login(sender_email, sender_pass)
                         smtpObj.sendmail(sender_email, receiver_email, msg.as_string())
                         logger.info("Error found email sent\n")
-                        print("Email sent")
+                        # print("Email sent")
                         smtpObj.quit()
                     except Exception as e:
                         logger.info(e)
@@ -141,6 +141,5 @@ def send_email():
 if __name__ == "__main__":
     run_test()
     from TestCase.TestCases import CCE_test
-
     CCE_test()
     send_email()
