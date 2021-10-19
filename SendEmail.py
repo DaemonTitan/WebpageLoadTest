@@ -27,11 +27,11 @@ smtp_server = 'smtp.office365.com'
 port = 587
 # sender_email = os.environ.get('Admin_Email')
 # sender_pass = os.environ.get('Admin_Pass')
-# receiver_email = ['tony@integrumsystems.com']
+# receiver_email = ['xx@xx.com']
 
 sender_email = os.environ.get('Email')
 sender_pass = os.environ.get('Email_Pass')
-receiver_email = ['tony@integrumsystems.com']
+receiver_email = ['xx@xx.com']
 
 
 def run_test():
