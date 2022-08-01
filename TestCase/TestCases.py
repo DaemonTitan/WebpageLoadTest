@@ -27,7 +27,7 @@ loginPassword = os.environ.get('CCETest_Pass')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 LOG_FORMAT = logging.Formatter("%(levelname)s %(asctime)s - %(message)s", "%d-%m-%Y %H:%M:%S")
-file_handler = logging.FileHandler('C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log')
+file_handler = logging.FileHandler('C:\\Users\\\PycharmProjects\\SystemTest\\Log\\SystemTest.log')
 file_handler.setFormatter(LOG_FORMAT)
 logger.addHandler(file_handler)
 
@@ -53,7 +53,7 @@ def CCE_test():
         driver.get("URL")
     except WebDriverException:
         logger.info("ERROR: Site not reachable")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Site_down.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Site_down.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -65,7 +65,7 @@ def CCE_test():
         logger.info("Login page loads")
     except TimeoutException:
         logger.info("ERROR: Login page time out or Server is down")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Login_page_error.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Login_page_error.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -89,7 +89,7 @@ def CCE_test():
         logger.info("Login successfully")
     except TimeoutException:
         logger.info("ERROR:Landing page is not loading")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Landing_Page_error.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Landing_Page_error.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -108,7 +108,7 @@ def CCE_test():
         logger.info("Access Project IMS Group Profile")
     except (TimeoutException, NoSuchElementException) as error:
         logger.info("ERROR:" + error)
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Left_Panel_Not_Loading.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Left_Panel_Not_Loading.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -125,7 +125,7 @@ def CCE_test():
         logger.info("Load SF View")
     except (TimeoutException, NoSuchElementException) as error:
         logger.info("ERROR:" + error)
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\View_Not_Loading.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\View_Not_Loading.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -139,7 +139,7 @@ def CCE_test():
     except TimeoutException:
         logger.info("ERROR: Load SF view content time out")
         driver.save_screenshot(
-            "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Load_SF_view_content_time_out.png")
+            "C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Load_SF_view_content_time_out.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -155,7 +155,7 @@ def CCE_test():
     except TimeoutException:
         logger.info("ERROR: Time out on loading new doc button")
         driver.save_screenshot(
-            "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\New_Doc_Button_not_Loading.png")
+            "C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\New_Doc_Button_not_Loading.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -170,7 +170,7 @@ def CCE_test():
         logger.info("New SF Created"+"["+driver.current_url+"]")
     except TimeoutException:
         logger.info("ERROR: Time out on loading template button")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Create_SF_Error.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Create_SF_Error.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -185,7 +185,7 @@ def CCE_test():
     except TimeoutException:
         logger.info("ERROR: SF content is not loading")
         driver.save_screenshot(
-            "C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\SF_Content_not_loading.png")
+            "C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\SF_Content_not_loading.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -217,7 +217,7 @@ def CCE_test():
         logger.info("YF Loads")
     except (TimeoutException, NoSuchElementException):
         logger.info("ERROR: YF not loading")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\YF_Not_Loading.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\YF_Not_Loading.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
@@ -233,7 +233,7 @@ def CCE_test():
             logger.info("YF Dashboard loads")
     except TimeoutException:
         logger.info("ERROR: Can not load Dashboard and report")
-        driver.save_screenshot("C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots\\Dashboard_Not_Loading.png")
+        driver.save_screenshot("C:\\Users\\PycharmProjects\\SystemTest\\Screenshots\\Dashboard_Not_Loading.png")
         logger.info("-----------------TESTING COMPLETED-----------------")
         driver.implicitly_wait(10)
         driver.quit()
