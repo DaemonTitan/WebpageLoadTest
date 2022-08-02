@@ -13,8 +13,8 @@ file_handler.setFormatter(LOG_FORMAT)
 logger.addHandler(file_handler)
 
 "File path"
-log_file_path = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Log\\SystemTest.log'
-screenshots_path = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Screenshots'
+log_file_path = 'C:\\Users\\PycharmProjects\\SystemTest\\Log\\SystemTest.log'
+screenshots_path = 'C:\\Users\\PycharmProjects\\SystemTest\\Screenshots'
 archive = 'C:\\Users\\tony\\PycharmProjects\\SystemTest\\Archive'
 
 """Current Date"""
